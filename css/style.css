@@ -6,6 +6,15 @@
   position: relative;
 
 }
+
+
+.snakeBody{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: black;
+}
+
 #head{
   position: absolute;
   width: 10px;

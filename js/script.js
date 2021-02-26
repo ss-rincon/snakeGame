@@ -1,30 +1,60 @@
- 
-class snakeBody {
-  constructor(xInit, yInit)
+/* 
+class snakeBody 
+{
+  constructor(xPos, yPos)
   {
-    this.xInit = xInit;
-    this.yInit = yInit;
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.createMe();
+  }
+
+  className = "snakeBody";
+    
+  createMe()
+  {
+    let myBody = $("<div>")
+      .attr(
+      "class", this.className)
+      .css({
+      "top": this.yPos,
+      "left": this.xPos
+    });
+    container.append(myBody);
   }
 }
 
-let snakeHead = new snakeBody(200, 200);
-let snakeLenght = [snakeHead];
-
-console.log(`Initial pos is (${snakeHead.xInit}, ${snakeHead.yInit})`)
-
-if(snakeLenght.length >= 1)
+class Button
 {
-  let body = $("<div></div>").css({
-    "background-color":"black",
-    "height":"10px",
-    "width":"10px",
-    "position":"absolute",
-    "top":"50px",
-    "left":"30px"
-  })
-  snakeLenght.push(body);
-  $(".container").append(body)
+  constructor()
+  {
+    this.createMe();
+    
+  }
+
+  createMe()
+  {
+    let myBody = $("<input>")
+    .attr(
+      "type", "submit"
+    );
+    container.append(myBody);
+    myBody.on("click", function(){
+      let snake = new snakeBody(xInit, yInit);
+      snakeParts.push(snake);
+      console.log({snakeParts})
+    })
+  }
 }
 
- 
- 
+let container = $(".container")
+let xInit = 50;
+let yInit = 50;
+
+let snakeParts = [];
+
+let snakeHead = new snakeBody(xInit, yInit);
+let firstButton = new Button();
+
+
+console.log(`Initial pos is (${snakeHead.xInit}, ${snakeHead.yInit}, ${snakeHead.height})`)
+ */

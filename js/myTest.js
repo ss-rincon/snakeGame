@@ -33,9 +33,12 @@ function reWait(i)
 
 function move()
 {
-  if(){}
-  let headTop = parseInt($("#head").css("top"));
-  $("#head").css("top", headTop + 10);
+  while (True)
+  {
+    let headTop = parseInt($("#head").css("top"));
+    $("#head").css("top", headTop + 10);
+  }
+
 }
 
 reWait(0);
