@@ -85,36 +85,7 @@ function checkKey(e)
   pressedKey = e.code;
   console.log(e.code);
 
-  if(velX == 10 || velX == -10)
-  {
-    if(pressedKey=="ArrowUp")
-    {
-      velX = 0;
-      velY = -10;
-    }
-    else if(pressedKey=="ArrowDown")
-    {
-      velX = 0;
-      velY = 10;
-    }
-  }
-
-  if(velY == 10 || velY == -10)
-  {
-    if(pressedKey=="ArrowLeft")
-    {
-      velY = 0;
-      velX = -10;
-    }
-    else if(pressedKey=="ArrowRight")
-    {
-      velY = 0;
-      velX = 10;
-    }
-  }
-
   
-}
 
 
 let posX = 0;

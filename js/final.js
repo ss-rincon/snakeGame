@@ -1,19 +1,15 @@
 class snakeTest
 {
-  constructor()
+  constructor(myClass)
   {
+    this.myClass = myClass;
     this.createMe();
-    //this.myPosX = pX;
-    //this.myPosY = pY;
+
   }
-
   myBody = $("<div>");
-
-
   createMe()
   {
-    this.myBody.attr("class", "test");
-    
+    this.myBody.attr("class", this.myClass);    
   }
 
   setPos(x,y)
@@ -22,42 +18,12 @@ class snakeTest
       "top": y,
       "left": x
     });
-
+    this.xx = x;
+    this.yy = y;
     $(".container").append(this.myBody);      
   }
 }
 
-class Fruit
-{
-  constructor()
-  {
-    this.createMe();
-    //this.myPosX = pX;
-    //this.myPosY = pY;
-  }
-
-  myBody = $("<div>");
-
-
-  createMe()
-  {
-    this.myBody.attr("class", "fruit");
-        
-    
-  }
-
-  setPos(x,y)
-  {
-    this.myBody.css({
-      "top": y,
-      "left": x
-    });
-    $(".container").append(this.myBody);
-    this.xx = x;
-    this.yy = y;
-  }
-
-}
 
 
 
@@ -66,21 +32,45 @@ let speedX = 0;
 let speedY = 10;
 let firstX = 50;
 let firstY = 50;
-let snakes = [new snakeTest()];
+let key = null;
+let snakes = [new snakeTest("test")];
 let path = [[firstX, firstY]];
-let lafruit = new Fruit();
-lafruit.setPos(80, 80)
+let fruit = new snakeTest("fruit");
+fruit.setPos(80, 80);
+
+function endGame()
+{
+
+  for(let elem of path.slice(1, path.length+1))
+  {
+    if(elem[0] == firstX && elem[1] == firstY)
+    {
+      return true
+    }
+  }
+  return (firstX >= 200 || firstY >= 200 || firstX < 0 || firstY < 0)
+
+}
 
 function checkFruit()
 {
   
-  if(lafruit.xx == firstX && lafruit.yy == firstY)
+  if(fruit.xx == firstX && fruit.yy == firstY)
   {
-    snakes.push(new snakeTest());
-    lafruit.setPos(170, 140)
+    snakes.push(new snakeTest("test"));
+    let randomX = Math.floor(Math.random() * 20)*10;
+    let randomY = Math.floor(Math.random() * 20)*10;
+
+    for (let elem of path)
+    {
+      if(elem[0] == randomX && elem[1] == randomY)
+      {
+        checkFruit()
+      }
+    }
+    fruit.setPos(randomX, randomY)
   }
 }
-
 
 function addPath()
 {
@@ -89,17 +79,32 @@ function addPath()
   {
     path.pop()
   }
+  console.log(path)
+  
+  
+
 }
 
 function main()
 {
+
   setSpeed();
-  addPath();
   checkFruit();
-  console.log(path);
+  changeDir();
+  changeDir();
+  addPath();
+  endGame();
+  
   for (let elem of snakes)
-  {elem.setPos(firstX,firstY)}
-  setTimeout(main, 500)
+  {elem.setPos(path[snakes.indexOf(elem)][0], path[snakes.indexOf(elem)][1])}
+  if(endGame()!=true)  
+  {
+  setTimeout(main, 100)
+  }
+  else
+  {
+    console.log("game over")
+  } 
 }
 
 
@@ -107,48 +112,40 @@ function checkSpeed(e)
 {
   if (e!=null)
   {
-  var key = e.code
+  key = e.code
   console.log(key)
   }
+}
 
-  switch(key)
+function changeDir()
+{
+  if(speedX == 10 || speedX == -10)
   {
-    case "ArrowUp":
-      if(speedX == -10 || speedX == 10)
-      {
-        speedX = 0;
-        speedY = -10;
-      }
-    break
+    if(key=="ArrowUp")
+    {
+      speedX = 0;
+      speedY = -10;
+    }
+    else if(key=="ArrowDown")
+    {
+      speedX = 0;
+      speedY = 10;
+    }
+  }
 
-    case "ArrowDown":
-      if(speedX == -10 || speedX == 10)
-      {
-        speedX = 0;
-        speedY = 10;
-      }
-    break
-
-    case "ArrowRight":
-      if(speedY == -10 || speedY == 10)
-      {
-        speedX = 10;
-        speedY = 0;
-      }
-    break
-
-    case "ArrowLeft":
-      if(speedY == -10 || speedY == 10)
-      {
-        speedX = -10;
-        speedY = 0;
-      }
-    break
-
-
-       
-  }  
-  
+  if(speedY == 10 || speedY == -10)
+  {
+    if(key=="ArrowLeft")
+    {
+      speedY = 0;
+      speedX = -10;
+    }
+    else if(key=="ArrowRight")
+    {
+      speedY = 0;
+      speedX = 10;
+    }
+  } 
 }
 
 function setSpeed()
@@ -156,8 +153,6 @@ function setSpeed()
   firstX += speedX;
   firstY += speedY;
 }
-
-
 
 $(document).on("keydown", checkSpeed)
 main();
