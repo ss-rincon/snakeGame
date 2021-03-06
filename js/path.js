@@ -1,13 +1,14 @@
 class snakeTest
 {
-  constructor()
+  constructor(pX, pY)
   {
     this.createMe();
+    this.myPosX = pX;
+    this.myPosY = pY;
   }
 
-  myBody = $("<div>")
-  myPosX = 0;
-  myPosY = 0;
+  myBody = $("<div>");
+
 
   createMe()
   {
@@ -28,10 +29,6 @@ class snakeTest
 
 }
 
-function doSomething()
-{
-  console.log("Were working")
-}
 
 function loop(a, b)
 {
@@ -40,36 +37,6 @@ function loop(a, b)
 
 
   console.log(pressedKey)
-
-  if(velX == 10 || velX == -10)
-  {
-    if(pressedKey=="ArrowUp")
-    {
-      velX = 0;
-      velY = -10;
-    }
-    else if(pressedKey=="ArrowDown")
-    {
-      velX = 0;
-      velY = 10;
-    }
-  }
-
-  if(velY == 10 || velY == -10)
-  {
-    if(pressedKey=="ArrowLeft")
-    {
-      velY = 0;
-      velX = -10;
-    }
-    else if(pressedKey=="ArrowRight")
-    {
-      velY = 0;
-      velX = 10;
-    }
-  }
-  x += velX;
-  y += velY;
 
   if(snakes.length>=1)
   {
@@ -117,6 +84,36 @@ function checkKey(e)
 {
   pressedKey = e.code;
   console.log(e.code);
+
+  if(velX == 10 || velX == -10)
+  {
+    if(pressedKey=="ArrowUp")
+    {
+      velX = 0;
+      velY = -10;
+    }
+    else if(pressedKey=="ArrowDown")
+    {
+      velX = 0;
+      velY = 10;
+    }
+  }
+
+  if(velY == 10 || velY == -10)
+  {
+    if(pressedKey=="ArrowLeft")
+    {
+      velY = 0;
+      velX = -10;
+    }
+    else if(pressedKey=="ArrowRight")
+    {
+      velY = 0;
+      velX = 10;
+    }
+  }
+
+  
 }
 
 
